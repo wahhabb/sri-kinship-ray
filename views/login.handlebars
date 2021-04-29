@@ -1,0 +1,28 @@
+<h2>Login or Sign Up</h2>
+{{#each failMessages}}
+<p class="fail">{{this}}</p>
+{{/each}}
+
+<p>In order to create, edit, or delete content for Kinship Ray, 
+    you must either login or sign up. No password is necessary--just
+    your email (which serves as your login) and a name.
+</p>
+
+<form id="login" method="post">
+    <h2>Login</h2>
+    <p>If you have logged in before, just enter your email here.</p>
+    <label for="pUser">Email address: <span>*</span></label>
+    <input type="email" name="pUser" required value="{{user}}"/><br>
+    <input type="submit" Value="Log In!" id="loginbtn">
+</form>
+<form id="signup" method="post" action="login">
+    <h2>Sign Up!</h2>
+    <p>If you have not logged in before, please fill in this form. You will need
+        to respond to a confirmation email we will send you.
+    </p>
+    <label for="pUser">Please enter your email address: <span>*</span></label>
+    <input type="email" name="pUser" required />
+    <label for="pName" required>Please enter your name: <span>*</span></label>
+    <input type="text" name="pName" value="{{pName}}"" required /><br>
+    <input type="submit" Value="Sign Up!" id="signupbtn">
+</form>

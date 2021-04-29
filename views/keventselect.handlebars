@@ -1,0 +1,50 @@
+{{#section 'head'}}
+<title>Kinship Event Edit--Select Event</title>
+{{/section}}
+
+{{#if success}}
+<p class="success">Event &ldquo;{{success}}&rdquo; successfully updated!</p>
+{{/if}}
+
+<h2>Kinship Event Edit&mdash;Select Event to Edit</h2>
+
+<h3>Click on a Button to Edit or Delete Event</h3>
+
+<form  method="post" id="choose">
+    <input type="checkbox" value="true" name="editevent" checked style="display: none;">
+    <input type="checkbox" value="true" name="deleteevent" id="deleteevent"
+        style="display: none;">
+{{#each kevents}}
+  <div class="kevent">
+        <p><button type="button" value="{{name}}">Edit</button> 
+        <button type="button" class="delete" value="{{name}}">Delete</button>
+        <b>{{name}}</b><br>
+        {{description}}</p>
+{{else}}
+{{#unless gettingCriteria}}
+<p><b>Sorry, you have not entered any events to edit. 
+        Use <a href="event-add">Add a Event</a> to enter one.</b></p>
+{{/unless}}
+{{/each}}
+ </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous">
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#choose button').click( (function() {
+            if ($(this).hasClass('delete')) {
+                if (confirm("Do you really want to delete this event? This cannot be undone")) {
+                    $('#deleteevent').prop('checked', true).val($(this).val());
+                    $("#choose").submit();
+                }
+            } else {
+                $('#editevent').val($(this).val());
+                $("#choose").submit();
+            }
+        })
+    )});
+</script>

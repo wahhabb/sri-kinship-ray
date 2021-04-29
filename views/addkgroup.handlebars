@@ -1,0 +1,154 @@
+{{#if successMessage}}
+<p class="success">Group successfully added!</p>
+{{/if}}
+
+{{#each failMessages}}
+<p class="fail">{{this}}</p>
+{{/each}}
+
+{{#if editgroup}}
+<h2>Update Action Group</h2>
+<p>Please enter changes and click Update button at bottom</p>
+{{else}}
+<h2>Kinship Wheels - Action Groups</h2>
+<p>If you have formed a new wheel that is based on location or affinity/cause, or if 
+    you have an organization or social action group you are already working with - please 
+    fill out this form so that we can add it to our collaborative database</p>
+{{/if}}
+
+<form {{#if editgroup}}action="group-edit" {{else}} action="group-add" {{/if}}
+    method="post" id="add_group" class="dataentry">
+<p>Fields marked with an asterisk <span style="color:red;">*</span> are required.</p>
+<ul>
+<li>
+    <label for="pname">Organization Name: <span>*</span></label>
+    <input type="text" name="pName" value="{{redisplay.pName}}{{kgroup.name}}" required />
+    {{!-- Note: the kgroup.name is used by edit-group --}}
+    {{#if editgroup}}
+        <input type="text" name="pOriginalName" value="{{kgroup.name}}" required style="display: none;"/>
+    {{/if}}
+</li>
+<p>Please give the name of your wheel or action group</p>
+<li>
+    <label for="pDescription">Description: <span>*</span></label>
+    <input type="text" name="pDescription" value="{{redisplay.pDescription}}{{kgroup.description}}" required />
+</li>
+<li>
+    <label for="pWebsite">Website: </label>
+    <input type="text" name="pWebsite" name="pWebsite" value="{{redisplay.pWebsite}}{{kgroup.website}}" />
+</li>
+<li>
+    <label for="pMissionStatement">Mission Statement: </label>
+    <textarea id="pMissionStatement" name="pMissionStatement">{{redisplay.pMissionStatement}}{{kgroup.missionStatement}}</textarea>
+</li>
+<li>
+    <label for="pResourcesNeeded">Resources Needed or Requested:</label>
+    <textarea type="text" id="pResourcesNeeded" name="pResourcesNeeded">{{redisplay.pResourcesNeeded}}{{kgroup.resourcesNeeded}}</textarea>
+</li>
+<p>What does your organization need &mdash; e.g. people with certain expertise,
+    volunteers, funding, tools, furniture, etc.</p>
+<li>
+    <label for="pOrgType">Organization Type: <span>*</span></label>
+    <select id="pOrgType"  name="pOrgType" >
+        <option value="">--Please choose an option--</option>
+        <option value="Local"
+            {{#ifeq redisplay.pOrgType "Local"}}selected{{/ifeq}}
+            {{#ifeq kgroup.orgType "Local"}}selected{{/ifeq}}>Local</option>
+        <option value="State-Province"
+            {{#ifeq redisplay.pOrgType "State-Province"}}selected{{/ifeq}}
+            {{#ifeq kgroup.orgType "State-Province"}}selected{{/ifeq}}>State or Province</option>
+        <option value="Regional" 
+            {{#ifeq redisplay.pOrgType "Regional"}}selected{{/ifeq}}
+            {{#ifeq kgroup.orgType "Regional"}}selected{{/ifeq}}>Regional</option>
+        <option value="National" 
+            {{#ifeq redisplay.pOrgType "National"}}selected{{/ifeq}}
+            {{#ifeq kgroup.orgType "National"}}selected{{/ifeq}}>National</option>
+        <option value="International" 
+            {{#ifeq redisplay.pOrgType "International"}}selected{{/ifeq}}
+            {{#ifeq kgroup.orgType "International"}}selected{{/ifeq}}>International</option>
+    </select>
+</li>
+<li>
+    <label for="pContactPerson">Contact Person: </label>
+    <input type="text" name="pContactPerson"  value="{{redisplay.pContactPerson}}{{kgroup.contactPerson}}" />
+</li>
+<li>
+    <label for="pContactEmail">Contact Email:  <span>*</span></label>
+    <input type="email" id="pContactEmail" 
+        name="pContactEmail" value="{{redisplay.pContactEmail}}{{kgroup.contactEmail}}" required />
+</li>
+<li>
+    <label for="pContactPhone">Contact Phone: </label>
+    <input type="tel" id="pContactPhone" 
+        name="pContactPhone" value="{{redisplay.pContactPhone}}{{kgroup.contactPhone}}" />
+</li>
+<li>
+    <label for="pTextOK">Text OK?: </label>
+    <select id="pTextOK" name="pTextOK">
+        <option value="">--Please choose an option--</option>
+        <option value="Yes" 
+            {{#ifeq redisplay.pTextOK "Yes"}}selected{{/ifeq}}
+            {{#ifeq kgroup.textOK "Yes"}}selected{{/ifeq}}
+            >Yes</option>
+        <option value="No"
+            {{#ifeq redisplay.pTextOK "No"}}selected{{/ifeq}}
+            {{#ifeq kgroup.textOK "No"}}selected{{/ifeq}}
+            >No</option>
+    </select>
+</li>
+<li>
+    <label for="pAddress1">Address:</label>
+    <input type="text" name="pAddress1" value="{{redisplay.pAddress1}}{{kgroup.address1}}" />
+</li>
+<li>
+    <label for="pAddress2">Address Line 2: </label>
+    <input type="text" name="pAddress2" value="{{redisplay.pAddress2}}{{kgroup.address2}}" />
+</li>
+<li>
+    <label for="pCity">City:</label>
+    <input type="text" name="pCity"  value="{{redisplay.pCity}}{{kgroup.city}}"/>
+</li>
+<li>
+    <label for="pStateProvince">State or Province:</label>
+    <input type="text" name="pStateProvince" value="{{redisplay.pStateProvince}}{{kgroup.stateProvince}}" />
+</li>
+<li>
+    <label for="pPostalCode">Postal Code: </label>
+    <input type="text" name="pPostalCode" value="{{redisplay.pPostalCode}}{{kgroup.postalCode}}" />
+</li>
+<li>
+    <label for="pCountry">Country:</label>
+    <input type="text" name="pCountry" value="{{redisplay.pCountry}}{{kgroup.country}}" />
+</li>
+<li>
+<h3>Issue or Affinity</h3>
+<li class="checkboxlist clearfix">
+    {{#each issueNames}}
+    <div>
+        <input type="checkbox" id="{{ name }}"
+            {{#if checked}}checked{{/if}}
+            name = "{{deblankName}}"
+            value = "{{name}}" >
+        <label class="cbox" for="{{name}}">{{name}}</label>
+    </div>
+    {{/each}}
+</li>
+<br />
+<li class="form-button">
+    <input type="submit" 
+    {{#if editgroup}}value="Submit Update" {{else}}value="Submit Add"{{/if}} 
+    id='yq' onclick=function(){alert(3)}
+    />
+</li>
+</ul>
+</form>
+
+<script type="javascript">
+    // Prevent enter key from submitting form
+    document.getElementById("add_group").onkeypress = function(e) {
+        var key = e.charCode || e.keyCode || 0;     
+        if (key == 13) {
+            e.preventDefault();
+        }
+    }
+</script>

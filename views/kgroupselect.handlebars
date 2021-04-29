@@ -1,0 +1,51 @@
+{{#section 'head'}}
+<title>Kinship Group Edit--Select Group</title>
+{{/section}}
+
+{{#if success}}
+<p class="success">Group &ldquo;{{success}}&rdquo; successfully updated!</p>
+{{/if}}
+
+<h2>Kinship Group Edit&mdash;Select Group to Edit</h2>
+
+<h3>Click on radio button next to a Group Name to Edit or Delete that Group</h3>
+
+<form  method="post" id="choose">
+    <input type="checkbox" value="true" name="editgroup" id="editgroup" 
+        checked style="display: none;">
+    <input type="checkbox" value="true" name="deletegroup" id="deletegroup"
+        style="display: none;">
+{{#each kgroups}}
+  <div class="kgroup">
+        <p><button type="button" value="{{name}}">Edit</button> 
+        <button type="button" class="delete" value="{{name}}">Delete</button>
+        <b>{{name}}</b><br>
+        {{description}}</p>
+{{else}}
+{{#unless gettingCriteria}}
+<p><b>Sorry, you have not entered any groups to edit. 
+        Use <a href="group-add">Add a Group</a> to enter one.</b></p>
+{{/unless}}
+{{/each}}
+ </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous">
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#choose button').click( (function() {
+            if ($(this).hasClass('delete')) {
+                if (confirm("Do you really want to delete this group? This cannot be undone")) {
+                    $('#deletegroup').prop('checked', true).val($(this).val());
+                    $("#choose").submit();
+                }
+            } else {
+                $('#editgroup').val($(this).val());
+                $("#choose").submit();
+            }
+        })
+    )});
+</script>

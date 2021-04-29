@@ -1,0 +1,254 @@
+<script>
+	const datePattern =  /^\d?\d[-\/]\d?\d[-\/]\d\d(\d\d)?$/;
+    const datePattern2 = /^\d\d(\d\d)?[-\/]\d?\d[-\/]\d?\d$/;
+    const timePattern = /^\d\d:\d\d ?[aApP][mM]$/
+    const timePattern2 = /^\d\d:\d\d$/    
+    
+    const eshow = s =>  document.getElementById(s).classList.remove("hidden");
+    const ehide = s => document.getElementById(s).classList.add("hidden");
+
+    function checkValidDate(el, errmsg) {
+        if (datePattern.test(el.value) || datePattern2.test(el.value)) {
+            ehide(errmsg);
+        } else {
+            eshow(errmsg);
+        }
+    }
+    function checkValidTime(el, errmsg) {
+        if (timePattern.test(el.value) || timePattern2.test(el.value)) {
+            ehide(errmsg);
+        } else {
+            eshow(errmsg);
+        }
+    }
+    function setEndDate(begdt) {
+        const enddt = document.getElementById('pEndDate')
+        if (!enddt.value) enddt.value = begdt.value;
+    }
+</script>
+
+{{#if successMessage}}
+<p class="success">Event successfully added!</p>
+{{/if}}
+
+{{#each failMessages}}
+<p class="fail">{{this}}</p>
+{{/each}}
+
+{{#if editevent}}
+<h2>Update Event</h2>
+<p>Please enter changes and click Update button at bottom</p>
+{{else}}
+<h2>Kinship Wheels - Events</h2>
+<p>If you are scheduling an event that is based on location or affinity/cause, please 
+    fill out this form so that we can add it to our collaborative database.</p>
+{{/if}}
+
+<form {{#if editevent}}action="event-edit" {{else}} action="event-add" {{/if}} 
+    method="post" id="add_event" class="dataentry">
+<p>Fields marked with an asterisk <span style="color:red;">*</span> are required.</p>
+<ul>
+<li>
+    <label for="pName">Event Name: <span>*</span></label>
+    <input type="text" name="pName" value="{{redisplay.pName}}{{kevent.name}}" required />
+    {{!-- Note: the kevent.name is used by edit-group --}}
+    {{#if editevent}}
+    <input type="text" name="pOriginalName" value="{{kevent.name}}" required style="display: none;"/>
+    {{/if}}
+</li>
+<p>Please give the name of your event</p>
+<li>
+    <label for="pDescription">Description: <span>*</span></label>
+    <input type="text" name="pDescription" value="{{redisplay.pDescription}}{{kevent.description}}" required />
+</li>
+<li>
+    <label for="pGroupName">Sponsoring Group:</label>
+    <select name=pGroupName id=pGroup>
+        <option>None</option> 
+    {{#each groupNames}}
+        <option value="{{this}}"
+        {{#ifeq this redisplay.pGroupName}}selected="selected"{{/ifeq}}
+        {{#ifeq this ../kevent.groupName}}selected="selected"{{/ifeq}}
+        >{{this}}</option>
+    {{/each}}
+   </select>
+</li>
+<li>
+    <label for="pBeginDate">Begin Date: <span>*</span></label>
+    <input type="date" name="pBeginDate" placeholder="mm/dd/yyyy"
+    id="pBeginDate"    
+    onblur="checkValidDate(this, 'errBeginDate');setEndDate(this)"
+    pattern="^\d?\d[-/]\d?\d[-/]\d\d(\d\d)?$"
+    value="{{redisplay.pBeginDate}}{{kevent.beginDate}}" required /><br>
+    <span id="errBeginDate" class="error hidden">Date must have format mm/dd/yyyy</span>
+</li>
+<li>
+    <label for="pBeginTime">Begin Time: <span>*</span></label>
+    <input type="time" name="pBeginTime" placeholder="--:-- am"
+        id="pBeginTime"    onblur="checkValidTime(this, 'errBeginTime')"
+        pattern="\d?\d:\d\d [aApP][mM]"
+        value="{{redisplay.pBeginTime}}{{kevent.beginTime}}" required /><br>
+    <span id="errBeginTime" class="error hidden">Time must have format hh:mm am</span>
+
+</li>
+<li>
+    <label for="pEndDate">End Date: <span>*</span></label>
+    <input type="date" name="pEndDate"  placeholder="mm/dd/yyyy"
+    id="pEndDate"    onblur="checkValidDate(this, 'errEndDate')"
+    pattern="^\d?\d[-/]\d?\d[-/]\d\d(\d\d)?$"
+    value="{{redisplay.pEndDate}}{{kevent.endDate}}" required /><br>
+    <span id="errEndDate" class="error hidden">Date must have format mm/dd/yyyy</span>
+</li>
+<li>
+    <label for="pEndTime">End Time: <span>*</span></label>
+    <input type="time" name="pEndTime" placeholder="--:-- am"
+        id="pEndime"    onblur="checkValidTime(this, 'errEndTime')"
+        pattern="\d?\d:\d\d [aApP][mM]"
+        value="{{redisplay.pEndTime}}{{kevent.endTime}}" required /><br>
+    <span id="errEndTime" class="error hidden">Time must have format hh:mm am</span>
+</li>
+<li>
+    <label for="pTimezone">Time Zone: <span>*</span></label>
+<select name="pTimezone" id="pTimezone" >
+	<option value="-08:00">Pacific Time (US &amp; Canada)</option>
+	<option value="-07:00">Mountain Time (US &amp; Canada)</option>
+	<option value="-06:00">Central Time (US &amp; Canada), Mexico City</option>
+	<option value="-05:00">Eastern Time (US &amp; Canada), Bogota, Lima</option>
+	<option value="-04:50">Caracas</option>
+	<option value="-04:00">Atlantic Time (Canada), Caracas, La Paz</option>
+	<option value="-03:50">Newfoundland</option>
+	<option value="-03:00">Brazil, Buenos Aires, Georgetown</option>
+	<option value="-02:00">Mid-Atlantic</option>
+	<option value="-01:00">Azores, Cape Verde Islands</option>
+	<option value="+00:00">Western Europe Time, London, Lisbon, Casablanca</option>
+	<option value="+01:00">Brussels, Copenhagen, Madrid, Paris</option>
+	<option value="+02:00">Kaliningrad, South Africa</option>
+	<option value="+03:00">Baghdad, Riyadh, Moscow, St. Petersburg</option>
+	<option value="+03:50">Tehran</option>
+	<option value="+04:00">Abu Dhabi, Muscat, Baku, Tbilisi</option>
+	<option value="+04:50">Kabul</option>
+	<option value="+05:00">Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+	<option value="+05:50">Bombay, Calcutta, Madras, New Delhi</option>
+	<option value="+05:75">Kathmandu, Pokhara</option>
+	<option value="+06:00">Almaty, Dhaka, Colombo</option>
+	<option value="+06:50">Yangon, Mandalay</option>
+	<option value="+07:00">Bangkok, Hanoi, Jakarta</option>
+	<option value="+08:00">Beijing, Perth, Singapore, Hong Kong</option>
+	<option value="+08:75">Eucla</option>
+	<option value="+09:00">Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+	<option value="+09:50">Adelaide, Darwin</option>
+	<option value="+10:00">Eastern Australia, Guam, Vladivostok</option>
+	<option value="+10:50">Lord Howe Island</option>
+	<option value="+11:00">Magadan, Solomon Islands, New Caledonia</option>
+	<option value="+11:50">Norfolk Island</option>
+	<option value="+12:00">Auckland, Wellington, Fiji, Kamchatka</option>
+	<option value="+12:75">Chatham Islands</option>
+	<option value="+13:00">Apia, Nukualofa</option>
+	<option value="+14:00">Line Islands, Tokelau</option>
+	<option value="-12:00">Eniwetok, Kwajalein</option>
+	<option value="-11:00">Midway Island, Samoa</option>
+	<option value="-10:00">Hawaii</option>
+	<option value="-09:50">Taiohae</option>
+	<option value="-09:00">Alaska</option>
+</select>    
+</li>
+<li>
+    <label for="pContactPerson">Contact Person: </label>
+    <input type="text" name="pContactPerson"  value="{{redisplay.pContactPerson}}{{kevent.contactPerson}}" />
+</li>
+<li>
+    <label for="pContactEmail">Contact Email: </label>
+    <input type="email" id="pContactEmail" 
+        name="pContactEmail" value="{{redisplay.pContactEmail}}{{kevent.contactEmail}}" />
+</li>
+<li>
+    <label for="pContactPhone">Contact Phone: </label>
+    <input type="tel" id="pContactPhone" 
+        name="pContactPhone" value="{{redisplay.pContactPhone}}{{kevent.contactPhone}}" />
+</li>
+<li>
+    <label for="pTextOK">Text OK?: </label>
+    <select id="pTextOK" name="pTextOK">
+        <option value="">--Please choose an option--</option>
+        <option value="Yes" {{#ifeq redisplay.pTextOK "Yes"}}selected{{/ifeq}}
+        {{#ifeq kevent.textOK "Yes"}}selected{{/ifeq}}
+        >Yes</option>
+        <option value="No"{{#ifeq redisplay.pTextOK "No"}}selected{{/ifeq}}
+        {{#ifeq kevent.textOK "No"}}selected{{/ifeq}}
+        >No</option>
+    </select>
+</li>
+<li>
+    <label for="pRegistrationLink">Registration Link:</label>
+    <input type="text" name="pRegistrationLink" value="{{redisplay.pRegistrationLink}}{{kevent.registrationLink}}" />
+</li>
+<li>
+    <label for="pAddress1">Address:</label>
+    <input type="text" name="pAddress1" value="{{redisplay.pAddress1}}{{kevent.address1}}" />
+</li>
+<li>
+    <label for="pAddress2">Address Line 2: </label>
+    <input type="text" name="pAddress2" value="{{redisplay.pAddress2}}{{kevent.address2}}" />
+</li>
+<li>
+    <label for="pCity">City:</label>
+    <input type="text" name="pCity"  value="{{redisplay.pCity}}{{kevent.city}}"/>
+</li>
+<li>
+    <label for="pStateProvince">State or Province:</label>
+    <input type="text" name="pStateProvince" value="{{redisplay.pStateProvince}}{{kevent.stateProvince}}" />
+</li>
+<li>
+    <label for="pPostalCode">Postal Code: </label>
+    <input type="text" name="pPostalCode" value="{{redisplay.pPostalCode}}{{kevent.postalCode}}" />
+</li>
+<li>
+    <label for="pCountry">Country:</label>
+    <input type="text" name="pCountry" value="{{redisplay.pCountry}}{{kevent.country}}" />
+</li>
+<li>
+    <label for="pType">Type:</label>
+    <select id="pType" name="pType">
+        <option value="">--Please choose an option--</option>
+        <Option value="In-person" 
+        {{#ifeq redisplay.pType "In-person"}}selected{{/ifeq}}
+        {{#ifeq kevent.type "In-person"}}selected{{/ifeq}}
+         > In Person</option>
+        <option value="Online" 
+        {{#ifeq redisplay.pType "Online"}}selected{{/ifeq}}
+        {{#ifeq kevent.type "Online"}}selected{{/ifeq}}
+        >Online</option>
+        <option value="Hybrid" 
+        {{#ifeq redisplay.pType "Hybrid"}}selected{{/ifeq}}
+        {{#ifeq kevent.type "Hybrid"}}selected{{/ifeq}}
+        >Hybrid (online and in person)</option>
+    </select>
+</li>
+<h3>Issue or Affinity</h3>      
+<li class="checkboxlist clearfix">
+    {{#each issueNames}}
+    <div>
+        <input type="checkbox" id="{{ name }}"
+            {{#if checked}}checked{{/if}}
+            name = "{{deblankName}}"
+            value = "{{name}}" >
+        <label class="cbox" for="{{name}}">{{name}}</label>
+    </div>
+    {{/each}}
+</li>
+<br />
+<li class="form-button">
+    <input type="submit" {{#if editevent}}value="Submit Update" {{else}}value="Submit Add"{{/if}} />
+</li>
+</ul>
+</form>
+
+<script type="javascript">
+    // Prevent enter key from submitting form
+    document.getElementById("add_event").onkeypress = function(e) {
+        var key = e.charCode || e.keyCode || 0;     
+        if (key == 13) {
+            e.preventDefault();
+        }
+    }
+</script>

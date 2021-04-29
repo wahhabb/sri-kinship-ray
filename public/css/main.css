@@ -1,0 +1,255 @@
+/* MAIN.CSS  */
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  background: rgb(255, 247, 234);
+  background-image: url("https:ruhaniat.org/images/ruhaniat/sri-bkg.jpg");
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #222;
+}
+main {
+  background: rgb(255, 247, 234);
+  margin: 0 3em;
+  padding: 2em;
+}
+h2,
+h3,
+h4 {
+  color: #800000;
+}
+header,
+footer {
+  min-height: 8em;
+  background: #875e1b;
+  color: white;
+}
+footer {
+  padding: 2em;
+}
+header h1 {
+  text-align: center;
+  color: white;
+  padding-top: 0.5em;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav {
+  margin-top: -1em;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav > ul {
+  display: inline-block;
+}
+
+nav li {
+  color: #fff;
+  background: #6e4d17;
+  display: block;
+  float: left;
+  padding: 1.2rem;
+  position: relative;
+  text-decoration: none;
+  transition-duration: 0.5s;
+}
+
+nav li a {
+  color: #fff;
+}
+
+nav li:hover,
+nav li:focus-within {
+  cursor: pointer;
+  outline: none;
+  background: #800000;
+}
+
+nav ul li ul {
+  background: #6e4d17;
+  visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+}
+
+nav ul li:hover > ul,
+nav ul li:focus-within > ul,
+nav ul li ul:hover,
+nav ul li ul:focus {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+nav ul li ul li {
+  clear: both;
+  width: 8em;
+}
+.center {
+  text-align: center;
+}
+button {
+  font-size: 100%;
+}
+button.delete {
+  background-color: #6e4d17;
+  color: white;
+  font-weight: bold;
+}
+form {
+  margin: 0 auto 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+}
+form li span {
+  color: red;
+}
+form ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+form li + li {
+  margin-top: 1em;
+}
+form.dataentry label {
+  display: inline-block;
+  text-align: right;
+}
+form select {
+  font-size: 100%;
+}
+.dataentry input,
+.dataentry textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  width: 70%;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+input:focus,
+textarea:focus {
+  /* Additional highlight for focused elements */
+  border-color: #000;
+}
+.checkboxlist {
+  list-style: none;
+}
+.checkboxlist input {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.checkboxlist label {
+  text-align: left;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.checkboxlist div {
+  display: inline-block;
+  width: 200px;
+  float: left;
+}
+
+textarea {
+  /* Align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* Provide space to type some text */
+  height: 5em;
+}
+
+.dataentry .form-button {
+  /* Align buttons with the text fields */
+  padding-left: 22%; /* same size as the label elements */
+}
+
+.dataentry .form-button input,
+#loginbtn,
+#signupbtn {
+  /* This extra margin represent roughly the same space as the space
+       between the labels and their text fields */
+  margin-left: 0.45em;
+  margin-top: 2em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.success {
+  font-size: 140%;
+  color: green;
+}
+.fail {
+  font-size: 120%;
+  color: red;
+}
+.hidden {
+  display: none;
+}
+.error {
+  color: red;
+}
+
+#byall,
+#byissuelist,
+#bytextlist {
+  display: none;
+}
+#byissuelist {
+  background-color: bisque;
+  padding: 0.6em;
+  margin-bottom: 1em;
+}
+#byissuelist hr {
+  color: blanchedalmond;
+  clear: both;
+}
+#criteria p {
+  margin-top: 0;
+}
+#searchbtn {
+  font-size: 1.2em;
+  padding: 0.2em 1.3em;
+  margin: 0.1em;
+  border: 0.15em solid #875e1b;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(133, 101, 51);
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#searchbtn:hover {
+  border-color: #4e2d0f;
+}
+#searchbtn:active {
+  background-color: #703c11;
+}
+#bytextlist span {
+  display: inline-block;
+  padding-right: 1em;
+  margin-bottom: 0.6em;
+}

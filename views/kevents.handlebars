@@ -1,0 +1,155 @@
+{{#section 'head'}}
+<title>Kinship Event List</title>
+{{/section}}
+
+<h2>Kinship Events List</h2>
+
+<h3>Search Criteria</h3>
+<form action="event-list" method="post" id="criteria">
+    <p>Sort Events by: 
+        <input type="radio" name="psort" value="name" id="pbyname"
+        {{#ifeq psort 'name' }} checked {{/ifeq}}
+        >
+        <label for="pbyname">Name</label>
+        <input type="radio" name="psort" value="group" id="pbygroup"
+        {{#ifeq psort 'group' }} checked {{/ifeq}}
+        >
+        <label for="pbygroup">Sponsoring Group</label>
+        <input type="radio" name="psort" value="begin" id="pbybegindate"
+        {{#ifeq psort 'begin' }} checked {{/ifeq}}
+        >
+        <label for="pbybegindate">Begin Date</label>
+        <input type="radio" name="psort" value="end" id="pbyenddate"
+        {{#ifeq psort 'end' }} checked {{/ifeq}}
+        >
+        <label for="pbyenddate">End Date</label>
+    </p>
+    <p>Select type of search</p>
+    <p><input type="radio" name="pshow" id="pshowall" value="all"
+        {{#ifeq pshow 'all' }} checked {{/ifeq}}
+    >
+    <label for="pshowall">Show All</label></p>
+    <div id="byall" class="hideable"
+        {{#ifeq pshow 'all' }} style="display: block;" {{/ifeq}}
+    >
+        <p>All events will be shown</p>
+    </div>
+    <p><input type="radio" name="pshow" id="pbyissue" value="issue"
+        {{#ifeq pshow 'issue' }} checked {{/ifeq}}
+    >
+    <label for="pbyissue">By Issue or Affinity</label></p>
+    <div id="byissuelist" class="checkboxlist clearfix hideable"
+        {{#ifeq pshow 'issue' }} style="display: block;" {{/ifeq}}
+    >
+        <p>Events with any checked issue will be displayed.</p>
+        </p>
+        {{#each issueNames}}
+        <div>
+            <input type="checkbox" id="{{ name }}"
+                name = "{{deblankName}}"
+                value = "{{name}}" 
+                {{#if checked}}checked{{/if}}
+                >
+            <label class="cbox" for="{{name}}">{{name}}</label>
+        </div> 
+        {{else}}
+        <p>Couldn't find issue names :-(</p>
+        {{/each}}
+        <br style="clear:both" />
+    </div>
+    <p><input type="radio" name="pshow" id="pbytext" value="text"
+        {{#ifeq pshow 'text' }} checked {{/ifeq}}
+    >
+    <label for="pbytext">By Text Search within Fields</label></p>
+    <div id="bytextlist" class="hideable"
+        {{#ifeq pshow 'text' }} style="display: block;" {{/ifeq}}
+    >
+        <p>Searches are case-independent. Search will look for any
+            entry that begins with what you have entered. In order
+            to search for text that is not at the beginning of the
+            field, put an asterisk in front of the search term.
+            So, "WA" in State field will find Washington, while
+            "*WA" will match both Washington and Iowa. If multiple 
+            search terms are entered, the event must match all of them
+            to be returned.
+        </p>
+    <span>
+        <label for="pName">Event Name</label>
+        <input type="text" name="pName" name="pName" value="{{pName}}" />
+    <span>
+    </span>
+    <label for="pDescription">Description:</label>
+    <input type="text" name="pDescription" name="pDescription" value="{{pDescription}}" />
+    </span>
+    <span>
+    <label for="pGroupName">Sponsoring Group:</label>
+    <input type="text" name="pGroupName" value="{{pGroupName}}" />
+    </span>
+    <span>
+    <label for="pCity">City:</label>
+    <input type="text" name="pCity" value="{{pCity}}" />
+    </span>
+    <span>
+    <label for="pStateProvince">State or Province:</label>
+    <input type="text" name="pStateProvince" value="{{pStateProvince}}" />
+    </span>
+    <span>
+   <label for="pCountry">Country:</label>
+    <input type="text" name="pCountry" value="{{pCountry}}" />
+    </span>
+    </p>
+    </div>
+    <input id="searchbtn" type="submit" value="Do Search"/>
+</form>
+{{!-- <script>
+    const showall = document.getElementById("showall")
+</script> --}}
+
+{{#each kevents}}
+  <div class="kevent">
+    <h3>{{name}}</h3>
+    <ul>
+        <li><b>Description</b> {{description}}</li>
+        <li><b>Sponsoring Group</b> {{groupName}}</li>
+        <li><b>Start Date and Time</b> {{ begin }}</li>
+        <li><b>End Date and Time</b> {{ end }}</li>
+        <li><b>Contact Person</b> {{ contactPerson }}</li>
+        <ul>
+            {{#if contactEmail}}
+            <li><b>Contact Email</b> {{ contactEmail }}</li>
+            {{/if}} {{#if contactPhone}}
+            <li><b>Contact Phone</b> {{ contactPhone }}</li>
+            <li><b>OK to Text?</b> {{ textOK }}</li>
+            {{/if}}
+        </ul>
+        {{#if registrationLink}}
+        <li><b>Registration Link</b> {{ registrationLink }}</li>
+        {{/if}}  {{#if address1}}
+        <li><b>Address Line 1</b> {{ address1 }}</li>
+        {{/if}}  {{#if address2}}
+            <li><b>Address Line 22</b> {{ address2 }}</li>
+        {{/if}}       
+        {{#if city}}<b>City</b> {{ city }} {{/if}}
+        {{#if stateProvince}}<b>State/Province</b> {{ stateProvince }} {{/if}}
+        {{#if postalCode}}<b>Postal Code</b> {{ postalCode }} {{/if}}
+        {{#if country}}<b>Country</b> {{ country }} {{/if}}
+        <li><b>Type</b> {{ type }}</li>
+    </ul>
+    <h4>Issue or Affinity</h4>
+    {{#each issues}}
+    <b>&bull; {{this}} &nbsp; </b>
+    {{/each}}
+{{else}}
+{{#unless gettingCriteria}}
+<p><b>Sorry, no events match your search. Please broaden your search and try again.</b></p>
+{{/unless}}
+{{/each}}
+ </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous">
+</script>
+
+
+<script src="/js/search.js">
+</script>

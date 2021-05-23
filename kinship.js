@@ -28,6 +28,10 @@ app.engine(
         if (item1 == item2) return options.fn(this);
         return "";
       },
+      ifneq: function (item1, item2, options) {
+        if (item1 !== item2) return options.fn(this);
+        return "";
+      },
     },
   })
 );

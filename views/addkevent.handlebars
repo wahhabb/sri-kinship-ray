@@ -110,47 +110,47 @@
 <li>
     <label for="pTimezone">Time Zone: <span>*</span></label>
 <select name="pTimezone" id="pTimezone" >
-	<option value="-08:00">Pacific Time (US &amp; Canada)</option>
-	<option value="-07:00">Mountain Time (US &amp; Canada)</option>
-	<option value="-06:00">Central Time (US &amp; Canada), Mexico City</option>
-	<option value="-05:00">Eastern Time (US &amp; Canada), Bogota, Lima</option>
-	<option value="-04:50">Caracas</option>
-	<option value="-04:00">Atlantic Time (Canada), Caracas, La Paz</option>
-	<option value="-03:50">Newfoundland</option>
-	<option value="-03:00">Brazil, Buenos Aires, Georgetown</option>
-	<option value="-02:00">Mid-Atlantic</option>
-	<option value="-01:00">Azores, Cape Verde Islands</option>
-	<option value="+00:00">Western Europe Time, London, Lisbon, Casablanca</option>
-	<option value="+01:00">Brussels, Copenhagen, Madrid, Paris</option>
-	<option value="+02:00">Kaliningrad, South Africa</option>
-	<option value="+03:00">Baghdad, Riyadh, Moscow, St. Petersburg</option>
-	<option value="+03:50">Tehran</option>
-	<option value="+04:00">Abu Dhabi, Muscat, Baku, Tbilisi</option>
-	<option value="+04:50">Kabul</option>
-	<option value="+05:00">Ekaterinburg, Islamabad, Karachi, Tashkent</option>
-	<option value="+05:50">Bombay, Calcutta, Madras, New Delhi</option>
-	<option value="+05:75">Kathmandu, Pokhara</option>
-	<option value="+06:00">Almaty, Dhaka, Colombo</option>
-	<option value="+06:50">Yangon, Mandalay</option>
-	<option value="+07:00">Bangkok, Hanoi, Jakarta</option>
-	<option value="+08:00">Beijing, Perth, Singapore, Hong Kong</option>
-	<option value="+08:75">Eucla</option>
-	<option value="+09:00">Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
-	<option value="+09:50">Adelaide, Darwin</option>
-	<option value="+10:00">Eastern Australia, Guam, Vladivostok</option>
-	<option value="+10:50">Lord Howe Island</option>
-	<option value="+11:00">Magadan, Solomon Islands, New Caledonia</option>
-	<option value="+11:50">Norfolk Island</option>
-	<option value="+12:00">Auckland, Wellington, Fiji, Kamchatka</option>
-	<option value="+12:75">Chatham Islands</option>
-	<option value="+13:00">Apia, Nukualofa</option>
-	<option value="+14:00">Line Islands, Tokelau</option>
-	<option value="-12:00">Eniwetok, Kwajalein</option>
-	<option value="-11:00">Midway Island, Samoa</option>
-	<option value="-10:00">Hawaii</option>
-	<option value="-09:50">Taiohae</option>
-	<option value="-09:00">Alaska</option>
-</select>    
+	<option>Pacific Time (US &amp; Canada)</option>
+	<option>Mountain Time (US &amp; Canada)</option>
+	<option>Central Time (US &amp; Canada), Mexico City</option>
+	<option>Eastern Time (US &amp; Canada), Bogota, Lima</option>
+	<option>Caracas</option>
+	<option>Atlantic Time (Canada), Caracas, La Paz</option>
+	<option>Newfoundland</option>
+	<option>Brazil, Buenos Aires, Georgetown</option>
+	<option>Mid-Atlantic</option>
+	<option>Azores, Cape Verde Islands</option>
+	<option>Western Europe Time, London, Lisbon, Casablanca</option>
+	<option>Brussels, Copenhagen, Madrid, Paris</option>
+	<option>Kaliningrad, South Africa</option>
+	<option>Baghdad, Riyadh, Moscow, St. Petersburg</option>
+	<option>Tehran</option>
+	<option>Abu Dhabi, Muscat, Baku, Tbilisi</option>
+	<option>Kabul</option>
+	<option>Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+	<option>Bombay, Calcutta, Madras, New Delhi</option>
+	<option>Kathmandu, Pokhara</option>
+	<option>Almaty, Dhaka, Colombo</option>
+	<option>Yangon, Mandalay</option>
+	<option>Bangkok, Hanoi, Jakarta</option>
+	<option>Beijing, Perth, Singapore, Hong Kong</option>
+	<option>Eucla</option>
+	<option>Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+	<option>Adelaide, Darwin</option>
+	<option>Eastern Australia, Guam, Vladivostok</option>
+	<option>Lord Howe Island</option>
+	<option>Magadan, Solomon Islands, New Caledonia</option>
+	<option>Norfolk Island</option>
+	<option>Auckland, Wellington, Fiji, Kamchatka</option>
+	<option>Chatham Islands</option>
+	<option>Apia, Nukualofa</option>
+	<option>Line Islands, Tokelau</option>
+	<option>Eniwetok, Kwajalein</option>
+	<option>Midway Island, Samoa</option>
+	<option>Hawaii</option>
+	<option>Taiohae</option>
+	<option>Alaska</option>
+</select>  
 </li>
 <li>
     <label for="pContactPerson">Contact Person: </label>
@@ -242,8 +242,12 @@
 </li>
 </ul>
 </form>
+{{#section 'scripts'}}
 
-<script type="javascript">
+<script>
+    // select correct timezone
+    document.getElementById("pTimezone").value = '{{kevent.zone}}'.replace(/&amp;/g, "&");
+
     // Prevent enter key from submitting form
     document.getElementById("add_event").onkeypress = function(e) {
         var key = e.charCode || e.keyCode || 0;     
@@ -252,3 +256,5 @@
         }
     }
 </script>
+{{/section}}
+

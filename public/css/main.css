@@ -117,14 +117,21 @@ button.delete {
 }
 form {
   margin: 0 auto 1em;
-  padding: 1em;
+  /* border: 1px solid #ccc;
+  border-radius: 1em; */
+}
+form .block {
   border: 1px solid #ccc;
   border-radius: 1em;
+  padding: 1em;
 }
+
 form li span {
   color: red;
 }
-form ul {
+form ul,
+.kgroup ul,
+.kevent ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -252,4 +259,12 @@ textarea {
   display: inline-block;
   padding-right: 1em;
   margin-bottom: 0.6em;
+}
+
+#pagination {
+  text-align: center;
+}
+
+.tightb {
+  margin-bottom: 0;
 }

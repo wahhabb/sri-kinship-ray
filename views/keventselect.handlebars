@@ -11,9 +11,10 @@
 <h3>Click on a Button to Edit or Delete Event</h3>
 
 <form  method="post" id="choose">
-    <input type="checkbox" value="true" name="editevent" checked style="display: none;">
+    <input type="checkbox" value="true" name="editevent" id="editevent" 
+    checked class="hidden">
     <input type="checkbox" value="true" name="deleteevent" id="deleteevent"
-        style="display: none;">
+        class="hidden">
 {{#each kevents}}
   <div class="kevent">
         <p><button type="button" value="{{name}}">Edit</button> 
@@ -25,6 +26,7 @@
 <p><b>Sorry, you have not entered any events to edit. 
         Use <a href="event-add">Add a Event</a> to enter one.</b></p>
 {{/unless}}
+</div>
 {{/each}}
  </form>
 

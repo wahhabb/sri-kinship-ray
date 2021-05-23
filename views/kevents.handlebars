@@ -6,6 +6,7 @@
 
 <h3>Search Criteria</h3>
 <form action="event-list" method="post" id="criteria">
+    <div class="block">
     <p>Sort Events by: 
         <input type="radio" name="psort" value="name" id="pbyname"
         {{#ifeq psort 'name' }} checked {{/ifeq}}
@@ -98,21 +99,26 @@
     <input type="text" name="pCountry" value="{{pCountry}}" />
     </span>
     </p>
+    <input class="hidden" id="ppage" name="ppage" value="{{page}}">
     </div>
     <input id="searchbtn" type="submit" value="Do Search"/>
-</form>
 {{!-- <script>
     const showall = document.getElementById("showall")
 </script> --}}
+</div>
 
 {{#each kevents}}
+    {{#ifneq @index ../maxEntries}}
   <div class="kevent">
-    <h3>{{name}}</h3>
-    <ul>
-        <li><b>Description</b> {{description}}</li>
-        <li><b>Sponsoring Group</b> {{groupName}}</li>
-        <li><b>Start Date and Time</b> {{ begin }}</li>
-        <li><b>End Date and Time</b> {{ end }}</li>
+    <h3 class="tightb">{{name}}</h3>
+    <b>Description</b> {{description}}<br>
+    <b>Start Date and Time</b> {{ begin }}<br>
+    <b>End Date and Time</b> {{ end }}<br>
+    <b>Time Zone</b> {{ zone }}<br>
+    <button class="showhide" type="button">Show Details</button>
+    <div class="hidden">
+    <ul>  
+        <ul><b>Sponsoring Group</b> {{groupName}}</ul>
         <li><b>Contact Person</b> {{ contactPerson }}</li>
         <ul>
             {{#if contactEmail}}
@@ -139,12 +145,31 @@
     {{#each issues}}
     <b>&bull; {{this}} &nbsp; </b>
     {{/each}}
+    </div>
+    {{/ifneq}}
 {{else}}
 {{#unless gettingCriteria}}
 <p><b>Sorry, no events match your search. Please broaden your search and try again.</b></p>
 {{/unless}}
 {{/each}}
  </div>
+
+{{#if kevents}}
+ <div id="pagination">
+     <span>
+        {{#ifneq showpage 1}} 
+         <button id="prev">Previus << </button>
+         {{/ifneq}}
+         Page {{showpage}}
+         {{#if morePages}}
+         <button id="next"> >> Next</button>
+         {{/if}}
+     </span>
+ </div>
+ {{/if}}
+ </div>
+</form>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
     crossorigin="anonymous">

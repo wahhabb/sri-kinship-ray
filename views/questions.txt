@@ -1,3 +1,0 @@
-QUESTIONS AND RESOLUTIONS
-
-Events just have Location, not address, city and state. Should that be expanded? (Resolved: Yes)

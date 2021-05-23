@@ -9,9 +9,19 @@ const auth = credentials.mysql;
 const pool = mysql.createPool(auth);
 const issueNames = [];
 const groupNames = [];
+const entriesPerPage = 25;
 
 module.exports = {
-  getKGroups: async (all, searchIssues, text, groupname, forUser, sort) => {
+  entriesPerPage: entriesPerPage,
+  getKGroups: async (
+    all,
+    searchIssues,
+    text,
+    page,
+    sort,
+    groupname,
+    forUser
+  ) => {
     var results;
     try {
       var sql;
@@ -49,6 +59,7 @@ module.exports = {
       if (sort === "name") sql += " ORDER BY Name";
       else if (sort === "place")
         sql += " ORDER BY Country, StateProvince, City";
+      sql += ` LIMIT ${entriesPerPage + 1} OFFSET ${page * entriesPerPage}`;
       results = await pool.query(sql);
     } catch (err) {
       console.error("Error in getKGroups: ", err);
@@ -222,7 +233,15 @@ module.exports = {
     return issueNames;
   },
 
-  getKEvents: async (all, searchIssues, text, eventname, forUser, sort) => {
+  getKEvents: async (
+    all,
+    searchIssues,
+    text,
+    page,
+    sort,
+    eventname,
+    forUser
+  ) => {
     var results;
     try {
       var sql;
@@ -259,10 +278,9 @@ module.exports = {
       else if (sort === "group") sql += " ORDER BY GroupName";
       else if (sort === "begin") sql += " ORDER BY Begin";
       else if (sort === "group") sql += " ORDER BY End";
+      sql += ` LIMIT ${entriesPerPage + 1} OFFSET ${page * entriesPerPage}`;
       results = await pool.query(sql);
-      console.log(sql);
     } catch (err) {
-      console.log(sql);
       console.error("Error in getKEvents: ", err);
       throw err;
     }
@@ -320,6 +338,7 @@ module.exports = {
     const GroupName = params.pGroup ? params.pGroup : null;
     const Begin = new Date(params.pBeginDate + " " + params.pBeginTime);
     const End = new Date(params.pEndDate + " " + params.pEndTime);
+    const Zone = params.pTimezone;
     const ContactPerson = params.pContactPerson ? params.pContactPerson : null;
     const ContactEmail = params.pContactEmail ? params.pContactEmail : null;
     const ContactPhone = params.pContactPhone ? params.pContactPhone : null;
@@ -349,6 +368,7 @@ module.exports = {
         GroupName,
         Begin,
         End,
+        Zone,
         ContactPerson,
         ContactEmail,
         ContactPhone,
@@ -384,6 +404,7 @@ module.exports = {
       GroupName: body.pGroupName,
       Begin: Begin,
       End: End,
+      Zone: body.pTimezone,
       ContactPerson: body.pContactPerson,
       ContactEmail: body.pContactEmail,
       ContactPhone: body.pContactPhone,

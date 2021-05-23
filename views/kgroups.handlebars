@@ -86,6 +86,7 @@
     </span>
     </p>
     </div>
+    <input class="hidden" id="ppage" name="ppage" value="{{page}}">
     <input id="searchbtn" type="submit" value="Do Search"/>
 </form>
 <script>
@@ -95,10 +96,13 @@
 
 
 {{#each kgroups}}
+    {{#ifneq @index ../maxEntries}}
   <div class="kgroup">
-    <h3>{{name}}</h3>
-    <ul>
-        <li><b>Description</b> {{description}}</li>
+    <h3 class="tightb">{{name}}</h3>
+    <b>Description</b> {{description}}<br>
+    <button class="showhide" type="button">Show Details</button>
+    <div class="hidden">
+    <ul>  
         <li><b>Website</b> {{ website }}</li>
         <li><b>Mission Statement</b> {{ missionStatement }}</li>
         <li><b>Resources Needed</b> {{ resourcesNeeded }}</li>
@@ -128,12 +132,28 @@
     {{else}}
     <b>None listed</b>
     {{/each}}
+    </div>
+    {{/ifneq}}
 {{else}}
 {{#unless gettingCriteria}}
 <p><b>Sorry, no groups match your search. Please broaden your search and try again.</b></p>
 {{/unless}}
 {{/each}}
  </div>
+ 
+{{#if kgroups}}
+ <div id="pagination">
+     <span>
+        {{#ifneq showpage 1}} 
+         <button id="prev">Previus << </button>
+         {{/ifneq}}
+         Page {{showpage}}
+         {{#if morePages}}
+         <button id="next"> >> Next</button>
+         {{/if}}
+     </span>
+ </div>
+ {{/if}}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 

@@ -7,7 +7,7 @@ $(document).ready(function () {
       selected = $(this);
     }
   });
-  // TODO: Ensure at least one checkbox checked or one field filled
+  // Ensure at least one checkbox checked or one field filled
   $("#criteria").on("submit", function (e) {
     if ($("#pbytext:checked").val()) {
       var lengthsum = 0;
@@ -25,6 +25,26 @@ $(document).ready(function () {
           alert("Please check at least one issue to search for.");
         }
       }
+    }
+  });
+
+  // Set pagination
+  $("#prev").click(function () {
+    $("#ppage").val(parseInt($("#ppage").val()) - 1);
+    $("#searchbtn").click();
+  });
+  $("#next").click(function () {
+    $("#ppage").val(parseInt($("#ppage").val()) + 1);
+    $("#searchbtn").click();
+  });
+
+  // Show or hide details
+  $(".showhide").click(function () {
+    $(this).next().toggleClass("hidden");
+    if ($(this.html === "Show Details")) {
+      this.innerHTML = "Hide Details";
+    } else {
+      this.innerHTML = "Show Details";
     }
   });
 });

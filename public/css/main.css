@@ -1,112 +1,150 @@
 /* MAIN.CSS  */
-html {
+:root {
+  --taupe: #6c645a;
+  --bone: #ede3d4;
+  --cream-yellow: #d6b277;z
+}
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-weight: normal;
 }
 body {
   margin: 0;
-  background: rgb(255, 247, 234);
-  background-image: url("https:ruhaniat.org/images/ruhaniat/sri-bkg.jpg");
+  background: #ECE3D6;
   box-sizing: border-box;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.4;
-  color: #222;
+  color: #333;
 }
-main {
-  background: rgb(255, 247, 234);
-  margin: 0 3em;
-  padding: 2em;
-}
-h2,
-h3,
-h4 {
-  color: #800000;
+
+p {
+  margin: 0.7em 0;
 }
 header,
 footer {
   min-height: 8em;
-  background: #875e1b;
-  color: white;
 }
 footer {
   padding: 2em;
 }
 header h1 {
   text-align: center;
-  color: white;
   padding-top: 0.5em;
+  padding-bottom: .5em;
+  font-weight: 400;
+  font-size: 2.5em;
 }
-
+h2, h3, h4 {
+  font-weight: 400;
+  padding: .5em 0;
+}
+h2 {
+  font-size: 2em;
+}
+nav {
+  width: 90%;
+  padding: 1em 0;
+  margin: 0 auto;
+}
 nav a {
   text-decoration: none;
+  color: #333;
+  /* These were added to ensure you can mouse down to the dropdown menu without it disappearing */
+  display: block;
 }
-
-nav {
-  margin-top: -1em;
-  text-align: center;
+nav ul {
+  list-style: none;
 }
 
 nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  max-width: 1024px;
+  min-height: 40px;
+  margin: 0 auto;
+  align-items: center;
 }
 
-nav > ul {
-  display: inline-block;
-}
-
-nav li {
-  color: #fff;
-  background: #6e4d17;
-  display: block;
-  float: left;
-  padding: 1.2rem;
+.menu li {
+  /* position:relative so that the submenu can be placed relative to its parent li */
   position: relative;
-  text-decoration: none;
-  transition-duration: 0.5s;
+  border: 2px solid #333;
+  padding: .7em 2em;
+  background: white;
+  margin-bottom: 0.6em;
+}
+.menu li li {
+  padding: 1em 1.5em;
+  border: none;
+  border-bottom: 2px solid #333;
+  min-width: 180px;
+  margin-bottom: 0;
+}
+.menu li:hover {
+  text-decoration: underline;
 }
 
-nav li a {
-  color: #fff;
+.menu ul {
+  /* Any Sub Menu */
+  display: none;
+  position: relative; /* NEW */
+  height: auto;
+  background: white;
 }
 
-nav li:hover,
-nav li:focus-within {
-  cursor: pointer;
-  outline: none;
-  background: #800000;
+.menu li:hover ul {
+  /* Display First Sub Menu */
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute; /* NEW */
+  top: 100%;
+  left: 0; /* Place the submenu at the bottom edge of its parent */
 }
 
-nav ul li ul {
-  background: #6e4d17;
-  visibility: hidden;
-  opacity: 0;
-  min-width: 5rem;
-  position: absolute;
-  transition: all 0.5s ease;
-  margin-top: 1rem;
-  left: 0;
+.menu .dropdown {
+  border: 2px solid #333;
+  z-index: 5;
+}
+
+.menu li:hover ul ul {
+  /* Hide Second Sub Menu until ready */
   display: none;
 }
 
-nav ul li:hover > ul,
-nav ul li:focus-within > ul,
-nav ul li ul:hover,
-nav ul li ul:focus {
-  visibility: visible;
-  opacity: 1;
-  display: block;
+.menu li ul li ul {
+  /* Second Sub Menu */
+  display: none;
+  height: auto;
+  background: white;
 }
 
-nav ul li ul li {
-  clear: both;
-  width: 8em;
+.menu li ul li:hover ul {
+  /* Display Second Sub Menu */
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Place the submenu at the right edge of its parent */
+}
+
+main {
+  padding: 0 3em 1em;
 }
 .center {
   text-align: center;
 }
+
+.center-within {
+  margin: auto;
+  display: block;
+}
+
 button {
   font-size: 100%;
 }
@@ -141,7 +179,7 @@ form li + li {
 }
 form.dataentry label {
   display: inline-block;
-  text-align: right;
+  min-width: 20%;
 }
 form select {
   font-size: 100%;
@@ -267,4 +305,17 @@ textarea {
 
 .tightb {
   margin-bottom: 0;
+}
+
+#home-welcome {
+  margin: 1em 2em 3em;
+  padding: 1em 2em;
+  background-color: var(--taupe);
+  color: var(--bone);
+}
+
+#home-use {
+  margin: 3em 2em 1em;
+  padding: 1em 2em;
+  background-color: var(--cream-yellow);
 }

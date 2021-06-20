@@ -73,6 +73,8 @@ app.get("/", handlers.home);
 app.get("/login", handlers.login);
 app.post("/login", handlers.doLogin);
 
+app.get("/about", handlers.about);
+
 app.get("/v3rf7q", handlers.verifyEmail);
 
 app.get("/group-list", handlers.getGroupCriteria);
@@ -94,6 +96,9 @@ app.get("/event-edit", handlers.selectKEvent);
 app.post("/event-edit", handlers.editKEvent);
 
 app.get("/resources-antiracism", handlers.resAntiRacism);
+//app.get("/resources-gender", handlers.resGender);
+//app.get("/resources-ecology", handlers.resEcology);
+// commented out the last two lines as they shouldn't be needed but left them just in case
 
 app.use(handlers.notFound);
 app.use(handlers.serverError);

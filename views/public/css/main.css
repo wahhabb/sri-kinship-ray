@@ -1,0 +1,321 @@
+/* MAIN.CSS  */
+:root {
+  --taupe: #6c645a;
+  --bone: #ede3d4;
+  --cream-yellow: #d6b277;z
+}
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+body {
+  margin: 0;
+  background: #ECE3D6;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #333;
+}
+
+p {
+  margin: 0.7em 0;
+}
+header,
+footer {
+  min-height: 8em;
+}
+footer {
+  padding: 2em;
+}
+header h1 {
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: .5em;
+  font-weight: 400;
+  font-size: 2.5em;
+}
+h2, h3, h4 {
+  font-weight: 400;
+  padding: .5em 0;
+}
+h2 {
+  font-size: 2em;
+}
+nav {
+  width: 90%;
+  padding: 1em 0;
+  margin: 0 auto;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+  /* These were added to ensure you can mouse down to the dropdown menu without it disappearing */
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+
+nav ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  max-width: 1024px;
+  min-height: 40px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.menu li {
+  /* position:relative so that the submenu can be placed relative to its parent li */
+  position: relative;
+  border: 2px solid #333;
+  padding: .7em 2em;
+  background: white;
+  margin-bottom: 0.6em;
+}
+.menu li li {
+  padding: 1em 1.5em;
+  border: none;
+  border-bottom: 2px solid #333;
+  min-width: 180px;
+  margin-bottom: 0;
+}
+.menu li:hover {
+  text-decoration: underline;
+}
+
+.menu ul {
+  /* Any Sub Menu */
+  display: none;
+  position: relative; /* NEW */
+  height: auto;
+  background: white;
+}
+
+.menu li:hover ul {
+  /* Display First Sub Menu */
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute; /* NEW */
+  top: 100%;
+  left: 0; /* Place the submenu at the bottom edge of its parent */
+}
+
+.menu .dropdown {
+  border: 2px solid #333;
+  z-index: 5;
+}
+
+.menu li:hover ul ul {
+  /* Hide Second Sub Menu until ready */
+  display: none;
+}
+
+.menu li ul li ul {
+  /* Second Sub Menu */
+  display: none;
+  height: auto;
+  background: white;
+}
+
+.menu li ul li:hover ul {
+  /* Display Second Sub Menu */
+  display: flex;
+  flex-flow: column wrap;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Place the submenu at the right edge of its parent */
+}
+
+main {
+  padding: 0 3em 1em;
+}
+.center {
+  text-align: center;
+}
+
+.center-within {
+  margin: auto;
+  display: block;
+}
+
+button {
+  font-size: 100%;
+}
+button.delete {
+  background-color: #6e4d17;
+  color: white;
+  font-weight: bold;
+}
+form {
+  margin: 0 auto 1em;
+  /* border: 1px solid #ccc;
+  border-radius: 1em; */
+}
+form .block {
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+form li span {
+  color: red;
+}
+form ul,
+.kgroup ul,
+.kevent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+form li + li {
+  margin-top: 1em;
+}
+form.dataentry label {
+  display: inline-block;
+  min-width: 20%;
+}
+form select {
+  font-size: 100%;
+}
+.dataentry input,
+.dataentry textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  width: 70%;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+input:focus,
+textarea:focus {
+  /* Additional highlight for focused elements */
+  border-color: #000;
+}
+.checkboxlist {
+  list-style: none;
+}
+.checkboxlist input {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.checkboxlist label {
+  text-align: left;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.checkboxlist div {
+  display: inline-block;
+  width: 200px;
+  float: left;
+}
+
+textarea {
+  /* Align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* Provide space to type some text */
+  height: 5em;
+}
+
+.dataentry .form-button {
+  /* Align buttons with the text fields */
+  padding-left: 22%; /* same size as the label elements */
+}
+
+.dataentry .form-button input,
+#loginbtn,
+#signupbtn {
+  /* This extra margin represent roughly the same space as the space
+       between the labels and their text fields */
+  margin-left: 0.45em;
+  margin-top: 2em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.success {
+  font-size: 140%;
+  color: green;
+}
+.fail {
+  font-size: 120%;
+  color: red;
+}
+.hidden {
+  display: none;
+}
+.error {
+  color: red;
+}
+
+#byall,
+#byissuelist,
+#bytextlist {
+  display: none;
+}
+#byissuelist {
+  background-color: bisque;
+  padding: 0.6em;
+  margin-bottom: 1em;
+}
+#byissuelist hr {
+  color: blanchedalmond;
+  clear: both;
+}
+#criteria p {
+  margin-top: 0;
+}
+#searchbtn {
+  font-size: 1.2em;
+  padding: 0.2em 1.3em;
+  margin: 0.1em;
+  border: 0.15em solid #875e1b;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(133, 101, 51);
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#searchbtn:hover {
+  border-color: #4e2d0f;
+}
+#searchbtn:active {
+  background-color: #703c11;
+}
+#bytextlist span {
+  display: inline-block;
+  padding-right: 1em;
+  margin-bottom: 0.6em;
+}
+
+#pagination {
+  text-align: center;
+}
+
+.tightb {
+  margin-bottom: 0;
+}
+
+#home-welcome {
+  margin: 1em 2em 3em;
+  padding: 1em 2em;
+  background-color: var(--taupe);
+  color: var(--bone);
+}
+
+#home-use {
+  margin: 3em 2em 1em;
+  padding: 1em 2em;
+  background-color: var(--cream-yellow);
+}

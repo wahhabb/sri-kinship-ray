@@ -35,7 +35,7 @@ footer {
 header h1 {
   text-align: center;
   padding-top: 0.5em;
-  padding-bottom: .5em;
+  /*padding-bottom: .5em;*/
   font-weight: 400;
   font-size: 2.5em;
 }
@@ -74,9 +74,9 @@ nav ul {
 .menu li {
   /* position:relative so that the submenu can be placed relative to its parent li */
   position: relative;
-  border: 2px solid #333;
+  /* border: 2px solid #333; */
   padding: .7em 2em;
-  background: white;
+  /*background: white;*/
   margin-bottom: 0.6em;
 }
 .menu li li {

@@ -1,3 +1,4 @@
+const contentSecurityPolicy = require("helmet-csp");
 const express = require("express");
 const expressHandlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
@@ -67,6 +68,15 @@ app.use(function (request, response, next) {
   next();
 });
 app.use(express.static(__dirname + "/public"));
+
+app.use(
+  contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      frameAncestors: ["self", "https://ruhaniat.org"]
+    }
+  })
+);
 
 app.get("/", handlers.home);
 

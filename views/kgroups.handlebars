@@ -89,7 +89,7 @@
     <input class="hidden" id="ppage" name="ppage" value="{{page}}">
     <input id="searchbtn" type="submit" value="Do Search"/>
 </form>
-<script>
+<script type="text/javascript">
     const showall = document.getElementById("showall")
 </script>
 
@@ -99,32 +99,32 @@
     {{#ifneq @index ../maxEntries}}
   <div class="kgroup">
     <h3 class="tightb">{{name}}</h3>
-    <b>Description</b> {{description}}<br>
+    <b>Description:</b> {{description}}<br>
     <button class="showhide" type="button">Show Details</button>
     <div class="hidden">
     <ul>  
-        <li><b>Website</b> {{ website }}</li>
-        <li><b>Mission Statement</b> {{ missionStatement }}</li>
-        <li><b>Resources Needed</b> {{ resourcesNeeded }}</li>
-        <li><b>Organization Type</b> {{ orgType }}</li>
-        <li><b>Contact Person</b> {{ contactPerson }}</li>
+        <li><b>Website:</b> {{ website }}</li>
+        <li><b>Mission Statement:</b> {{ missionStatement }}</li>
+        <li><b>Resources Needed:</b> {{ resourcesNeeded }}</li>
+        <li><b>Organization Type:</b> {{ orgType }}</li>
+        <li><b>Contact Person:</b> {{ contactPerson }}</li>
         <ul>
             {{#if contactEmail}}
-            <li><b>Contact Email</b> {{ contactEmail }}</li>
+            <li><b>Contact Email:</b> {{ contactEmail }}</li>
             {{/if}} {{#if contactPhone}}
-            <li><b>Contact Phone</b> {{ contactPhone }}</li>
-            <li><b>OK to Text?</b> {{ textOK }}</li>
+            <li><b>Contact Phone:</b> {{ contactPhone }}</li>
+            <li><b>OK to Text?:</b> {{ textOK }}</li>
             {{/if}}
         </ul>
         {{#if address1}}
-        <li><b>Address Line 1</b> {{ address1 }}</li>
+        <li><b>Address Line 1:</b> {{ address1 }}</li>
         {{/if}}  {{#if address2}}
-            <li><b>Address Line 22</b> {{ address2 }}</li>
+            <li><b>Address Line 2:</b> {{ address2 }}</li>
         {{/if}}       
-        {{#if city}}<b>City</b> {{ city }} {{/if}}
-        {{#if stateProvince}}<b>State/Province</b> {{ stateProvince }} {{/if}}
-        {{#if postalCode}}<b>Postal Code</b> {{ postalCode }} {{/if}}
-        {{#if country}}<b>Country</b> {{ country }} {{/if}}
+        {{#if city}}<b>City:</b> {{ city }} {{/if}}
+        {{#if stateProvince}}<b>State/Province:</b> {{ stateProvince }} {{/if}}
+        {{#if postalCode}}<b>Postal Code:</b> {{ postalCode }} {{/if}}
+        {{#if country}}<b>Country:</b> {{ country }} {{/if}}
     </ul>
     <h4>Issue or Affinity</h4>
     {{#each issues}}
@@ -155,9 +155,7 @@
  </div>
  {{/if}}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-    crossorigin="anonymous">
+<script src="/js/jquery-3.6.0.min.js">
 </script>
 
 <script src="/js/search.js">

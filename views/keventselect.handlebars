@@ -30,23 +30,8 @@
 {{/each}}
  </form>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-    crossorigin="anonymous">
+<script src="/js/jquery-3.6.0.min.js">
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#choose button').click( (function() {
-            if ($(this).hasClass('delete')) {
-                if (confirm("Do you really want to delete this event? This cannot be undone")) {
-                    $('#deleteevent').prop('checked', true).val($(this).val());
-                    $("#choose").submit();
-                }
-            } else {
-                $('#editevent').val($(this).val());
-                $("#choose").submit();
-            }
-        })
-    )});
+<script src="/js/event-click.js">
 </script>
